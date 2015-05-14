@@ -76,6 +76,8 @@ public class VehicleController {
         return new ResponseEntity<VehicleDto>(updatedVehicleDto, HttpStatus.OK);
     }
 
+//    public HttpEntity<VehicleModelDto> updateVehicleModel
+
     @RequestMapping(value = "/vehicle-models",method = RequestMethod.GET)
     public HttpEntity<List<VehicleModelDto>> getAllVehicleModels() {
 
