@@ -1,7 +1,6 @@
 package com.thinkful.spring.service.impl;
 
 import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
 import com.thinkful.spring.dao.VehicleModelDao;
 import com.thinkful.spring.entity.VehicleModel;
 import com.thinkful.spring.service.VehicleModelService;

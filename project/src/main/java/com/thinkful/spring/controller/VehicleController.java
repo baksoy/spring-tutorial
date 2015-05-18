@@ -3,11 +3,14 @@ package com.thinkful.spring.controller;
 
 import com.google.common.base.Preconditions;
 import com.thinkful.contract.dto.VehicleDto;
+import com.thinkful.contract.dto.VehicleMakeDto;
 import com.thinkful.contract.dto.VehicleModelDto;
 import com.thinkful.contract.dto.VehiclePersistenceRequest;
 import com.thinkful.spring.entity.Vehicle;
+import com.thinkful.spring.entity.VehicleMake;
 import com.thinkful.spring.entity.VehicleModel;
 import com.thinkful.spring.mapper.DtoMapper;
+import com.thinkful.spring.service.VehicleMakeService;
 import com.thinkful.spring.service.VehicleModelService;
 import com.thinkful.spring.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,6 +33,9 @@ public class VehicleController {
 
     @Autowired
     VehicleModelService vehicleModelService;
+
+    @Autowired
+    VehicleMakeService vehicleMakeService;
 
     @Autowired
     DtoMapper mapper;
@@ -129,5 +133,33 @@ public class VehicleController {
         VehicleModelDto updateVehicleModelDto = mapper.map(updateVehicleModelEntity, VehicleModelDto.class);
 
         return new ResponseEntity<VehicleModelDto>(updateVehicleModelDto, HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/vehicle-makes", method = RequestMethod.GET)
+    public HttpEntity<List<VehicleMakeDto>> getAllVehicleMakes(){
+        List<VehicleMake> vehicleMakes = vehicleMakeService.findAllVehicleMakes();
+        List<VehicleMakeDto> vehicleMakeDtos = mapper.mapAsList(vehicleMakes, VehicleMakeDto.class);
+
+        return new ResponseEntity<List<VehicleMakeDto>>(vehicleMakeDtos, HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/vehicle-make", method = RequestMethod.POST)
+    public HttpEntity<VehicleMakeDto> createVehicleMake(@RequestBody VehicleMakeDto vehicleMakeRequest){
+        Preconditions.checkArgument(vehicleMakeRequest != null);
+        VehicleMake vehicleMakeEntity = vehicleMakeService.createVehicleMake(vehicleMakeRequest.getName());
+        VehicleMakeDto vehicleMakeDto = mapper.map(vehicleMakeEntity, VehicleMakeDto.class);
+        return new ResponseEntity<VehicleMakeDto>(vehicleMakeDto, HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/vehicle-make", method = RequestMethod.PUT)
+    public HttpEntity<VehicleMakeDto> updateVehicleMake(@RequestBody VehicleMakeDto vehicleMakeRequest){
+        Preconditions.checkArgument(vehicleMakeRequest != null);
+        VehicleMake vehicleMakeEntity = vehicleMakeService.findById(vehicleMakeRequest.getId());
+        Preconditions.checkArgument(vehicleMakeEntity != null, "No matching vehicle make found");
+        vehicleMakeEntity.setName(vehicleMakeRequest.getName());
+
+        VehicleMake updateVehicleMakeEntity = vehicleMakeService.updateVehicleMake(vehicleMakeEntity);
+        VehicleMakeDto updateVehicleMakeDto = mapper.map(updateVehicleMakeEntity, VehicleMakeDto.class);
+        return new ResponseEntity<VehicleMakeDto>(updateVehicleMakeDto, HttpStatus.OK);
     }
 }
