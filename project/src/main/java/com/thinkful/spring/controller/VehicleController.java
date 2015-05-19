@@ -74,7 +74,6 @@ public class VehicleController {
         Vehicle vehicleEntity = vehicleService.findVehicleById(vehiclePersistenceRequest.getId());
         Preconditions.checkArgument(vehicleEntity != null, "No matching vehicle found");
 
-
         if (vehicleEntity.getModel().getId() != vehiclePersistenceRequest.getModelId()) {
 
             VehicleModel vehicleModel = vehicleModelService.findById(vehiclePersistenceRequest.getModelId());
@@ -85,6 +84,13 @@ public class VehicleController {
 
         if (vehicleEntity.getMake().getId() != vehiclePersistenceRequest.getMakeId()){
 
+            VehicleMake vehicleMake = vehicleMakeService.findById(vehiclePersistenceRequest.getMakeId());
+            Preconditions.checkArgument(vehicleMake != null, "No matching vehicle make found");
+
+            vehicleEntity.setMake(vehicleMake);
+        }
+
+        if (vehicleEntity.getMake().getId() != vehiclePersistenceRequest.getMakeId()) {
             VehicleMake vehicleMake = vehicleMakeService.findById(vehiclePersistenceRequest.getMakeId());
             Preconditions.checkArgument(vehicleMake != null, "No matching vehicle make found");
 
