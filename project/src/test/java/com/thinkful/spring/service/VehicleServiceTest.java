@@ -3,6 +3,7 @@ package com.thinkful.spring.service;
 import com.thinkful.spring.config.MainConfiguration;
 import com.thinkful.spring.config.Profiles;
 import com.thinkful.spring.entity.Vehicle;
+import com.thinkful.spring.entity.VehicleMake;
 import com.thinkful.spring.entity.VehicleModel;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,17 +27,25 @@ public class VehicleServiceTest {
     @Autowired
     VehicleService vehicleService;
 
+    @Autowired
+    VehicleMakeService vehicleMakeService;
+
     @Test(expected = IllegalArgumentException.class)
     public void testCreateVehicleErrorNullModel() {
-        vehicleService.createVehicle(null,"red");
+        vehicleService.createVehicle(null, null,"red");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testCreateVehicleErrorNullColor() {
+
+        VehicleMake make = new VehicleMake();
+        make.setName("test make");
+
         VehicleModel model = new VehicleModel();
         model.setName("test model");
 
-        vehicleService.createVehicle(model,null);
+
+        vehicleService.createVehicle(make, model,null);
     }
 
     @Test
@@ -44,7 +53,10 @@ public class VehicleServiceTest {
         VehicleModel vehicleModel = vehicleModelService.createVehicleModel("model");
         Assert.assertNotNull(vehicleModel);
 
-        Vehicle vehicle = vehicleService.createVehicle(vehicleModel, "Red");
+        VehicleMake vehicleMake= vehicleMakeService.createVehicleMake("make");
+        Assert.assertNotNull(vehicleMake);
+
+        Vehicle vehicle = vehicleService.createVehicle(vehicleMake, vehicleModel, "Red");
         Assert.assertNotNull(vehicle);
         Assert.assertTrue("The primary key was not properly assigned", vehicle.getId() > 0);
         Assert.assertNotNull(vehicle.getModel());
@@ -64,9 +76,11 @@ public class VehicleServiceTest {
 
         //Step 2... Creating 10 vehicles.
         VehicleModel model = vehicleModelService.createVehicleModel("model");
+        VehicleMake make = vehicleMakeService.createVehicleMake("make");
+
         int vecicleCreationCount = 10;
         for (int i=0; i<vecicleCreationCount; i++) {
-            vehicleService.createVehicle(model, "color " + i);
+            vehicleService.createVehicle(make, model, "color " + i);
         }
 
         //Step 3... Checking that there are 10 vehicle in the database

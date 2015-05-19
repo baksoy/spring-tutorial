@@ -13,6 +13,10 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
+    @ManyToOne(targetEntity = VehicleMake.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "vehiclemake_id")
+    private VehicleMake make;
+
     @ManyToOne(targetEntity = VehicleModel.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "vehiclemodel_id")
     private VehicleModel model;

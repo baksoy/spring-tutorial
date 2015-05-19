@@ -53,10 +53,14 @@ public class VehicleController {
     public HttpEntity<VehicleDto> createVehicle(@RequestBody VehiclePersistenceRequest vehiclePersistenceRequest) {
         Preconditions.checkArgument(vehiclePersistenceRequest != null);
 
+        VehicleMake vehicleMakeEntity = vehicleMakeService.findById(vehiclePersistenceRequest.getMakeId());
+        Preconditions.checkArgument(vehicleMakeEntity != null, "No matching vehicle make found");
+
         VehicleModel vehicleModelEntity = vehicleModelService.findById(vehiclePersistenceRequest.getModelId());
         Preconditions.checkArgument(vehicleModelEntity != null, "No matching vehicle model found");
 
-        Vehicle vehicleEntity = vehicleService.createVehicle(vehicleModelEntity, vehiclePersistenceRequest.getColor());
+//        Vehicle vehicleEntity = vehicleService.createVehicle(vehicleModelEntity, vehiclePersistenceRequest.getColor());
+        Vehicle vehicleEntity = vehicleService.createVehicle(vehicleMakeEntity, vehicleModelEntity, vehiclePersistenceRequest.getColor());
         VehicleDto vehicleDto = mapper.map(vehicleEntity, VehicleDto.class);
 
         return new ResponseEntity<VehicleDto>(vehicleDto,HttpStatus.OK);
@@ -72,10 +76,13 @@ public class VehicleController {
 
 
         if (vehicleEntity.getModel().getId() != vehiclePersistenceRequest.getModelId()) {
+            VehicleMake vehicleMake = vehicleMakeService.findById(vehiclePersistenceRequest.getMakeId());
+            Preconditions.checkArgument(vehicleMake != null, "No matching vehicle make found");
+
             VehicleModel vehicleModel = vehicleModelService.findById(vehiclePersistenceRequest.getModelId());
             Preconditions.checkArgument(vehicleModel != null, "No matching vehicle model found");
 
-
+            vehicleEntity.setMake(vehicleMake);
             vehicleEntity.setModel(vehicleModel);
         }
 
