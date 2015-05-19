@@ -17,7 +17,7 @@ public class VehicleMakeServiceImpl implements VehicleMakeService{
    VehicleMakeDao vehicleMakeDao;
 
    @Override
-   @javax.transaction.Transactional
+   @Transactional
    public VehicleMake createVehicleMake(String makeName) {
       Preconditions.checkArgument(makeName != null, "Vehicle Make cannot be null");
 

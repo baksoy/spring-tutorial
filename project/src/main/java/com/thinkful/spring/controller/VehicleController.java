@@ -74,18 +74,21 @@ public class VehicleController {
         Vehicle vehicleEntity = vehicleService.findVehicleById(vehiclePersistenceRequest.getId());
         Preconditions.checkArgument(vehicleEntity != null, "No matching vehicle found");
 
-
         if (vehicleEntity.getModel().getId() != vehiclePersistenceRequest.getModelId()) {
-            VehicleMake vehicleMake = vehicleMakeService.findById(vehiclePersistenceRequest.getMakeId());
-            Preconditions.checkArgument(vehicleMake != null, "No matching vehicle make found");
 
             VehicleModel vehicleModel = vehicleModelService.findById(vehiclePersistenceRequest.getModelId());
             Preconditions.checkArgument(vehicleModel != null, "No matching vehicle model found");
 
-            vehicleEntity.setMake(vehicleMake);
             vehicleEntity.setModel(vehicleModel);
         }
 
+
+        if (vehicleEntity.getMake().getId() != vehiclePersistenceRequest.getMakeId()) {
+            VehicleMake vehicleMake = vehicleMakeService.findById(vehiclePersistenceRequest.getMakeId());
+            Preconditions.checkArgument(vehicleMake != null, "No matching vehicle make found");
+
+            vehicleEntity.setMake(vehicleMake);
+        }
 
         vehicleEntity.setColor(vehiclePersistenceRequest.getColor());
 
