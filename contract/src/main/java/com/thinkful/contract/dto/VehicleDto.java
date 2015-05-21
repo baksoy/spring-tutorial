@@ -9,5 +9,5 @@ public class VehicleDto {
     private VehicleMakeDto make;
     private VehicleModelDto model;
     private String color;
-    private DateTime date = DateTime.now();
+//    private DateTime date = DateTime.now();
 }
