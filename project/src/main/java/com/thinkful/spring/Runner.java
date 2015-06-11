@@ -17,16 +17,13 @@
 package com.thinkful.spring;
 
 import com.thinkful.spring.config.MainConfiguration;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.core.env.ConfigurableEnvironment;
 
 public class Runner {
 
-    public static void main(String[] args) throws Exception {
+   public static void main(String[] args) throws Exception {
 
-        ConfigurableApplicationContext context = SpringApplication.run(MainConfiguration.class, args);
-    }
+      ConfigurableApplicationContext context = SpringApplication.run(MainConfiguration.class, args);
+   }
 }

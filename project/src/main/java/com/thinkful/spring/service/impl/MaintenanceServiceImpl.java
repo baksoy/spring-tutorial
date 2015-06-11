@@ -1,6 +1,5 @@
 package com.thinkful.spring.service.impl;
 
-
 import com.google.common.base.Preconditions;
 import com.thinkful.spring.dao.MaintenanceDao;
 import com.thinkful.spring.entity.Maintenance;
@@ -12,11 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class MaintenanceServiceImpl implements MaintenanceService{
+public class MaintenanceServiceImpl implements MaintenanceService {
 
    @Autowired
    MaintenanceDao maintenanceDao;
-
 
    @Override
    @Transactional
@@ -30,7 +28,6 @@ public class MaintenanceServiceImpl implements MaintenanceService{
       return maintenance;
    }
 
-
    @Override
    @Transactional
    public Maintenance updateMaintenance(Maintenance maintenance) {
@@ -40,14 +37,14 @@ public class MaintenanceServiceImpl implements MaintenanceService{
    }
 
    @Override
-   @Transactional (readOnly = true)
+   @Transactional(readOnly = true)
    public Maintenance findById(int id) {
       return maintenanceDao.findById(id);
    }
 
    @Override
-   @Transactional (readOnly = true)
-   public List<Maintenance> findAllVehicleMakes() {
+   @Transactional(readOnly = true)
+   public List<Maintenance> findAllMaintenanceItems() {
       return maintenanceDao.findAll();
    }
 

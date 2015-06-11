@@ -20,15 +20,13 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     @Transactional
-    public Vehicle createVehicle(VehicleMake make, VehicleModel model, String color) {
+    public Vehicle createVehicle(VehicleMake make, VehicleModel model) {
         Preconditions.checkArgument(make != null, "Make cannot be null");
         Preconditions.checkArgument(model != null, "Model cannot be null");
-        Preconditions.checkArgument(color != null, "Color cannot be null");
 
         Vehicle vehicle = new Vehicle();
         vehicle.setMake(make);
         vehicle.setModel(model);
-        vehicle.setColor(color);
 
         vehicleDao.create(vehicle);
         return vehicle;

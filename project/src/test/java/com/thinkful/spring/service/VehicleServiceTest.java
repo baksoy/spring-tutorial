@@ -32,20 +32,7 @@ public class VehicleServiceTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testCreateVehicleErrorNullModel() {
-        vehicleService.createVehicle(null, null,"red");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testCreateVehicleErrorNullColor() {
-
-        VehicleMake make = new VehicleMake();
-        make.setName("test make");
-
-        VehicleModel model = new VehicleModel();
-        model.setName("test model");
-
-
-        vehicleService.createVehicle(make, model,null);
+        vehicleService.createVehicle(null, null);
     }
 
     @Test
@@ -56,12 +43,12 @@ public class VehicleServiceTest {
         VehicleMake vehicleMake= vehicleMakeService.createVehicleMake("make");
         Assert.assertNotNull(vehicleMake);
 
-        Vehicle vehicle = vehicleService.createVehicle(vehicleMake, vehicleModel, "Red");
+        Vehicle vehicle = vehicleService.createVehicle(vehicleMake, vehicleModel);
         Assert.assertNotNull(vehicle);
         Assert.assertTrue("The primary key was not properly assigned", vehicle.getId() > 0);
         Assert.assertNotNull(vehicle.getModel());
         Assert.assertEquals("model", vehicle.getModel().getName());
-        Assert.assertEquals("Red", vehicle.getColor());
+//        Assert.assertEquals("Red", vehicle.getColor());
 
         vehicleService.deleteVehicle(vehicle.getId());
         vehicleModelService.deleteVehicleModel(vehicleModel.getId());
@@ -80,7 +67,7 @@ public class VehicleServiceTest {
 
         int vecicleCreationCount = 10;
         for (int i=0; i<vecicleCreationCount; i++) {
-            vehicleService.createVehicle(make, model, "color " + i);
+            vehicleService.createVehicle(make, model);
         }
 
         //Step 3... Checking that there are 10 vehicle in the database

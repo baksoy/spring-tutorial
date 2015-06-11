@@ -3,6 +3,7 @@ package com.thinkful.spring.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "VEHICLE")
@@ -21,8 +22,9 @@ public class Vehicle {
     @JoinColumn(name = "vehiclemodel_id")
     private VehicleModel model;
 
-    @Column(nullable = false)
-    private String color;
+    @Column(nullable = true, name = "last_mileage")
+    private Long lastMileage;
 
-
+    @Column(nullable = true, name = "last_mileage_date")
+    private Date lastMileageDate;
 }

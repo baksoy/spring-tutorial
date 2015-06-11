@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface VehicleService {
 
-    Vehicle createVehicle(VehicleMake vehicleMake, VehicleModel model, String color);
+    Vehicle createVehicle(VehicleMake vehicleMake, VehicleModel model);
     Vehicle updateVehicle(Vehicle vehicle);
     List<Vehicle> findAllVehicles();
     Vehicle findVehicleById(long id);

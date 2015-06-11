@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface MaintenanceService {
    Maintenance createMaintenance (String maintenanceItem);
-   Maintenance updateMaintenance (String maintenanceItem);
+   Maintenance updateMaintenance (Maintenance maintenance);
    Maintenance findById(int id);
-   List<Maintenance> findAllMaintenanceItems;
+   List<Maintenance> findAllMaintenanceItems();
    void deleteMaintenanceItem(int maintenanceId);
 }
 
