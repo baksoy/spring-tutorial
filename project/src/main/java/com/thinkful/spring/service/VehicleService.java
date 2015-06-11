@@ -14,4 +14,6 @@ public interface VehicleService {
     List<Vehicle> findAllVehicles();
     Vehicle findVehicleById(long id);
     void deleteVehicle(long vehicleId);
+
+    Vehicle setVehicleMileage(Vehicle vehicle, long mileage);
 }

@@ -6,6 +6,7 @@ import com.thinkful.spring.entity.Vehicle;
 import com.thinkful.spring.entity.VehicleMake;
 import com.thinkful.spring.entity.VehicleModel;
 import com.thinkful.spring.service.VehicleService;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,5 +57,14 @@ public class VehicleServiceImpl implements VehicleService {
     @Transactional
     public void deleteVehicle(long vehicleId) {
         vehicleDao.deleteById(vehicleId);
+    }
+
+    @Override
+    @Transactional
+    public Vehicle setVehicleMileage(Vehicle vehicle, long mileage) {
+        vehicle.setLastMileage(mileage);
+        vehicle.setLastMileageDate(DateTime.now().toDate());
+
+        return updateVehicle(vehicle);
     }
 }

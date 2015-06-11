@@ -12,15 +12,14 @@ import com.thinkful.spring.service.MaintenanceService;
 import com.thinkful.spring.service.VehicleMakeService;
 import com.thinkful.spring.service.VehicleModelService;
 import com.thinkful.spring.service.VehicleService;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 
@@ -48,6 +47,22 @@ public class VehicleController {
       List<VehicleDto> vehicleDtos = mapper.mapAsList(vehicles, VehicleDto.class);
 
       return new ResponseEntity<List<VehicleDto>>(vehicleDtos, HttpStatus.OK);
+   }
+
+   @RequestMapping(value="/vehicle/mileage/{vehicleId}/{mileage}", method = RequestMethod.GET)
+   public HttpEntity<VehicleDto> updateVehicleMileage(@PathVariable("vehicleId")Long vehicleId,
+                                                      @PathVariable("mileage")Long mileage) {
+
+      Preconditions.checkArgument(vehicleId != null,"Unable to update Vehicle Mileage for a null vehicleId");
+      Preconditions.checkArgument(mileage != null,"Unable to update Vehicle Mileage with a null mileage");
+
+      Vehicle vehicleEntity = vehicleService.findVehicleById(vehicleId);
+      Preconditions.checkArgument(vehicleEntity != null, "No matching vehicle found for id: " + vehicleId);
+
+      Vehicle updatedVehicleEntity = vehicleService.setVehicleMileage(vehicleEntity, mileage);
+      VehicleDto vehicleDto = mapper.map(updatedVehicleEntity, VehicleDto.class);
+
+      return new ResponseEntity<VehicleDto>(vehicleDto, HttpStatus.OK);
    }
 
    @RequestMapping(value = "/vehicle", method = RequestMethod.POST)
