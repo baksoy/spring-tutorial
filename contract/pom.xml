@@ -71,6 +71,7 @@
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok-maven-plugin</artifactId>
 				<version>1.16.4.1</version>
+				<encoding>utf-8</encoding>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
