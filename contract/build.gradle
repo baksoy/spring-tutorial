@@ -1,0 +1,29 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+configurations{
+    provided
+}
+
+dependencies {
+    provided 'org.projectlombok:lombok:1.16.2'
+    compile 'joda-time:joda-time:2.7'
+}
+
+//Include provided for compilation
+sourceSets.main.compileClasspath += configurations.provided
+
+// optional: if using 'idea' plugin
+idea {
+    module {
+        scopes.PROVIDED.plus += [configurations.provided]
+    }
+}
+
+// optional: if using 'eclipse' plugin
+eclipse {
+    classpath {
+        plusConfigurations += [configurations.provided]
+    }
+}
