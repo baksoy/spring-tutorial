@@ -1,11 +1,9 @@
 package com.thinkful.spring.entity;
 
-import lombok.Data;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "VEHICLEMAKE")
-@Data
 
 public class VehicleMake {
 
@@ -16,4 +14,51 @@ public class VehicleMake {
    @Column(nullable = false)
    private String name;
 
+   public VehicleMake() {
+   }
+
+   public int getId() {
+      return this.id;
+   }
+
+   public String getName() {
+      return this.name;
+   }
+
+   public void setId(int id) {
+      this.id = id;
+   }
+
+   public void setName(String name) {
+      this.name = name;
+   }
+
+   public boolean equals(Object o) {
+      if (o == this) return true;
+      if (!(o instanceof VehicleMake)) return false;
+      final VehicleMake other = (VehicleMake) o;
+      if (!other.canEqual((Object) this)) return false;
+      if (this.id != other.id) return false;
+      final Object this$name = this.name;
+      final Object other$name = other.name;
+      if (this$name == null ? other$name != null : !this$name.equals(other$name)) return false;
+      return true;
+   }
+
+   public int hashCode() {
+      final int PRIME = 59;
+      int result = 1;
+      result = result * PRIME + this.id;
+      final Object $name = this.name;
+      result = result * PRIME + ($name == null ? 0 : $name.hashCode());
+      return result;
+   }
+
+   protected boolean canEqual(Object other) {
+      return other instanceof VehicleMake;
+   }
+
+   public String toString() {
+      return "com.thinkful.spring.entity.VehicleMake(id=" + this.id + ", name=" + this.name + ")";
+   }
 }
