@@ -1,5 +1,6 @@
 package com.thinkful.spring.config;
 
+import org.springframework.orm.hibernate4.support.OpenSessionInViewFilter;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -15,11 +16,14 @@ public class WebInitializer implements WebApplicationInitializer {
 
     public void onStartup(ServletContext servletContext) throws ServletException {
 
-//        servletContext.setInitParameter("spring.profiles.default", Profiles.PRODUCTION);
-
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
         ctx.register(MainConfiguration.class);
         ctx.setServletContext(servletContext);
+
+        servletContext.addFilter("Spring OpenSessionInViewFilter", new OpenSessionInViewFilter());
+
+        //Define the default profile
+        servletContext.setInitParameter("spring.profiles.default", Profiles.PRODUCTION);
 
         Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(ctx));
         servlet.addMapping("/");

@@ -2,6 +2,7 @@ package com.thinkful.spring.service;
 
 import com.thinkful.spring.config.MainConfiguration;
 import com.thinkful.spring.config.Profiles;
+import com.thinkful.spring.config.TestConfiguration;
 import com.thinkful.spring.entity.VehicleModel;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,7 +16,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {MainConfiguration.class})
+@ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = {TestConfiguration.class})
 @ActiveProfiles(profiles = Profiles.DEFAULT)
 public class VehicleModelServiceTest {
 
