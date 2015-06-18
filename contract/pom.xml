@@ -67,6 +67,7 @@
 
 	<build>
 		<plugins>
+			<!--
 			<plugin>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok-maven-plugin</artifactId>
@@ -93,32 +94,6 @@
 						<configuration>
 							<addOutputDirectory>false</addOutputDirectory>
 							<sourceDirectory>src/test/java</sourceDirectory>
-							<encoding>utf-8</encoding>
-						</configuration>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>sun.jdk</groupId>
-						<artifactId>tools</artifactId>
-						<version>1.7</version>
-						<scope>system</scope>
-						<systemPath>${project.basedir}/lib/tools.jar</systemPath>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<!--
-			<plugin>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok-maven-plugin</artifactId>
-				<version>1.16.4.1</version>
-				<executions>
-					<execution>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>delombok</goal>
-						</goals>
-						<configuration>
 							<encoding>utf-8</encoding>
 						</configuration>
 					</execution>
