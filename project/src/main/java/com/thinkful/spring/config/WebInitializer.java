@@ -26,7 +26,7 @@ public class WebInitializer implements WebApplicationInitializer {
         servletContext.setInitParameter("spring.profiles.default", Profiles.PRODUCTION);
 
         Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(ctx));
-        servlet.addMapping("/");
+        servlet.addMapping("/*");
         servlet.setLoadOnStartup(1);
     }
 }
