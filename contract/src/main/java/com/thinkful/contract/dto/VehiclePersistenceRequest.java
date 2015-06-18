@@ -11,9 +11,4 @@ public class VehiclePersistenceRequest {
 
    public VehiclePersistenceRequest() {
    }
-
-   protected boolean canEqual(Object other) {
-      return other instanceof VehiclePersistenceRequest;
-   }
-
 }
