@@ -12,6 +12,7 @@ import com.thinkful.spring.service.MaintenanceService;
 import com.thinkful.spring.service.VehicleMakeService;
 import com.thinkful.spring.service.VehicleModelService;
 import com.thinkful.spring.service.VehicleService;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,11 @@ public class VehicleController {
 
    @Autowired
    DtoMapper mapper;
+
+   @RequestMapping(value = "/", method = RequestMethod.GET)
+   public HttpEntity<String> getHeartbeat() {
+      return new ResponseEntity<String>("Active: " + DateTime.now().toDateTimeISO(), HttpStatus.OK);
+   }
 
    @RequestMapping(value = "/vehicles", method = RequestMethod.GET)
    public HttpEntity<List<VehicleDto>> getAllVehicles() {
